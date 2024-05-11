@@ -12,12 +12,13 @@ class UserController {
                 let re = /\S+@\S+\.\S+/;
                 return re.test(email);
             }
-            let { login, password, fio, email, city, telephone } = req.body;
+            let { login, password, fio, email, city, phoneNumber } = req.body;
             if (login.length == 0) login = null;
             if (password.length == 0) password = null;
-            if (fio.length == 0) name = null;
+            if (fio.length == 0) fio = null;
             if (city.length == 0) city = null;
-            if (telephone.length == 0) city = null;
+            if (phoneNumber.length == 0) phoneNumber = null;
+            console.log(email);
             if (!validateEmail(email))
                 return res.status(400).json({
                     message:
@@ -27,7 +28,7 @@ class UserController {
             const newUser = await bd.query(
                 'INSERT INTO person (login, password, fio, email, city, telephone) ' +
                     'VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-                [login, hashPassword, fio, email, city, telephone]
+                [login, hashPassword, fio, email, city, phoneNumber]
             );
             LogsService.addLog(
                 newUser.rows[0].id,
