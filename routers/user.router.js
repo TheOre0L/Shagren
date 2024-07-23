@@ -1,16 +1,17 @@
 const Router = require("express")
 const router = new Router()
 const userController = require('../controllers/user.controller')
+const authController = require('../controllers/user.controller')
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const jsonParser = bodyParser.json()
 const authMiddleware = require('../middlewares/auth.middelewares');
 
-router.post('/registration', urlencodedParser, jsonParser, userController.registration);
-router.post('/login', urlencodedParser ,jsonParser, userController.login)
+router.post('/registration', urlencodedParser, jsonParser, authController.registration);
+router.post('/login', urlencodedParser ,jsonParser, authController.login)
 router.get('/users', userController.getUsers)
 router.get('/user/:id', userController.getOneUser)
-router.get('/refresh', userController.refresh)
-router.get('/logout', userController.logout)
+router.get('/refresh', authController.refresh)
+router.get('/logout', authController.logout)
 
 module.exports = router;

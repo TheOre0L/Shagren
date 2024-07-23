@@ -1,6 +1,8 @@
 const Router = require('express');
 const router = new Router();
 const productController = require('../controllers/product.controller');
+const productTypeController = require('../controllers/product.controller');
+const collorController = require('../controllers/product.controller');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
@@ -32,15 +34,15 @@ router.get('/id=:id', authMiddleware, productController.productGet);
 router.get('/all', productController.productAllGet);
 
 //TYPES
-router.post('/type/create', urlencodedParser, jsonParser, productController.productAdd);
-router.delete('/type/delete/:id', urlencodedParser, jsonParser, productController.productDelete);
+router.post('/type/create', urlencodedParser, jsonParser, productTypeController.productAdd);
+router.delete('/type/delete/:id', urlencodedParser, jsonParser, productTypeController.productDelete);
 
 //COLORS
 router.post(
     '/color/add/:id',
     urlencodedParser,
     jsonParser,
-    productController.colorAdd
+    collorController.colorAdd
 );
 
 module.exports = router;

@@ -5,7 +5,8 @@ const ApiError = require('../exceptions/api-error');
 const tokenService = require('./tokens.controller');
 const mailService = require('./mail.controller');
 const LogsService = require('./logs.controller');
-class UserController {
+
+class AuthorisationController {
     async registration(req, res) {
         try {
             function validateEmail(email) {
@@ -78,6 +79,7 @@ class UserController {
             }
         }
     }
+
     async login(req, res) {
         try {
             const { login, password } = req.body;
@@ -112,23 +114,6 @@ class UserController {
         }
     }
 
-    async getUsers(req, res) {
-        try {
-            const allUsers = await bd.query('Select * From person');
-            res.json(allUsers.rows);
-        } catch (e) {
-            console.log(e);
-            return res.status(500).json({ message: 'Непредвиденная ошибка!' });
-        }
-    }
-
-    async getOneUser(req, res) {
-        try {
-        } catch (e) {
-            console.log(e);
-            return res.status(500).json({ message: 'Непредвиденная ошибка!' });
-        }
-    }
     async logout(req, res) {
         try {
             const { refreshToken } = req.cookies;
@@ -173,5 +158,25 @@ class UserController {
         }
     }
 }
+class UserController {
+    async getUsers(req, res) {
+        try {
+            const allUsers = await bd.query('Select * From person');
+            res.json(allUsers.rows);
+        } catch (e) {
+            console.log(e);
+            return res.status(500).json({ message: 'Непредвиденная ошибка!' });
+        }
+    }
+
+    async getOneUser(req, res) {
+        try {
+        } catch (e) {
+            console.log(e);
+            return res.status(500).json({ message: 'Непредвиденная ошибка!' });
+        }
+    }
+}
 
 module.exports = new UserController();
+module.exports = new AuthorisationController();

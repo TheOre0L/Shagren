@@ -1,0 +1,59 @@
+.catalogContainer {
+    width: 100%;
+    display: grid;
+    padding: 1rem 1rem; /* Отступы по бокам и сверху/снизу */
+    justify-content: center; /* Центрировать карточки внутри контейнера */
+
+    /* Стиль для больших экранов */
+    grid-template-columns: repeat(3, 1fr); /* Два столбца */
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr); /* Два больших столбца */
+    }
+
+    /* Стиль для мобильных экранов */
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr; /* Один столбец */
+    }
+}
+
+.catalogCard {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Изменение размера карточек для больших экранов */
+    @media (min-width: 1024px) {
+        /* Карточки для больших экранов */
+        width: 100%;
+        max-width: 400px; /* Установите максимальную ширину карточек для больших экранов */
+    }
+
+    /* Изменение размера карточек для мобильных экранов */
+    @media (max-width: 1024px) {
+        /* Карточки для мобильных экранов */
+        width: 100%;
+        max-width: 100%; /* Карточки занимают всю ширину экрана */
+    }
+
+    &:hover {
+        transform: scale(1.05); /* Увеличение карточек при наведении */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень при наведении */
+    }
+}
+
+.cardContent {
+    padding: 16px;
+}
+
+.postDetails {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

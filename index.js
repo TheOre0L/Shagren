@@ -20,9 +20,9 @@ app.use(
 );
 app.use('/uploads', express.static('uploads'));
 
-app.use('/auth', userRouter);
-app.use('/product', productRouter);
-app.use('/basket', basketRouter);
+app.use('/api/v1.0/auth', userRouter);
+app.use('/api/v1.0/product', productRouter);
+app.use('/api/v1.0/basket', basketRouter);
 
 const storage = multer.diskStorage({
     destination: (_, __, cd) => {

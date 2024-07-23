@@ -17,7 +17,6 @@ export const Context = createContext<State>({
     store
 })
 root.render(
-
       <Context.Provider value={{store}}>
               <BrowserRouter>
                   <App></App>

@@ -8,6 +8,7 @@ import { UserDTO } from '../models/response/UserDTO';
 import Carusel from '../components/carusel/Carusel';
 import styles from '../styles/Login.module.css';
 import CustomizedSnackbars from '../components/Message/notification_msg';
+
 export const Home = () => {
     const { store } = useContext(Context);
     useEffect(() => {
