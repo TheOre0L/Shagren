@@ -5,71 +5,71 @@ const LogsService = require('./logs.controller');
 
 class collorController {
     // COLLOR
-    async colorAdd(req, res) {
-        try {
-            let { colorName } = req.body;
+    // async colorAdd(req, res) {
+    //     try {
+    //         let { colorName } = req.body;
 
-            const newColor = await bd.query(
-                'INSERT INTO color (colorName) ' + 'VALUES ($1) RETURNING *',
-                [colorName]
-            );
+    //         const newColor = await bd.query(
+    //             'INSERT INTO color (colorName) ' + 'VALUES ($1) RETURNING *',
+    //             [colorName]
+    //         );
 
-            return res.status(200).json({
-                message: 'Цвет успешно добавлен!',
-                color: newColor.rows[0],
-            });
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json({
-                message: 'Произошла непредвиденная ошибка!',
-                error: error,
-            });
-        }
-    }
+    //         return res.status(200).json({
+    //             message: 'Цвет успешно добавлен!',
+    //             color: newColor.rows[0],
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //         return res.status(500).json({
+    //             message: 'Произошла непредвиденная ошибка!',
+    //             error: error,
+    //         });
+    //     }
+    // }
 }
 
 class productTypeController {
     //PRODUCT_TYPE
-    async typeAdd(req, res) {
-        try {
-            let { name } =
-                req.body;
+    // async typeAdd(req, res) {
+    //     try {
+    //         let { name } =
+    //             req.body;
 
-            const newType = await bd.query(
-                'INSERT INTO product (name) ' +
-                    'VALUES ($1) RETURNING *',
-                [name]
-            );
-            LogsService.addLog(
-                userid,
-                'Создание категории',
-                `Создание категории ${JSON.stringify(newType.rows[0])}`
-            );
-            return res.status(200).json({
-                message: 'Категория успешно добавлена!',
-                type: newType.rows[0],
-            });
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json({
-                message: 'Произошла непредвиденная ошибка!',
-                error: error,
-            });
-        }
-    }
+    //         const newType = await bd.query(
+    //             'INSERT INTO product (name) ' +
+    //                 'VALUES ($1) RETURNING *',
+    //             [name]
+    //         );
+    //         LogsService.addLog(
+    //             userid,
+    //             'Создание категории',
+    //             `Создание категории ${JSON.stringify(newType.rows[0])}`
+    //         );
+    //         return res.status(200).json({
+    //             message: 'Категория успешно добавлена!',
+    //             type: newType.rows[0],
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //         return res.status(500).json({
+    //             message: 'Произошла непредвиденная ошибка!',
+    //             error: error,
+    //         });
+    //     }
+    // }
 
-    async typeDelete(req, res) {
-        try {
-            const id = req.params.id;
+    // async typeDelete(req, res) {
+    //     try {
+    //         const id = req.params.id;
 
-            const newType = await bd.query(
-                'SELECT * FROM product WHERE typeId = $1 AND view = true * RETURNING *',
-                [typeId]
-            );
-        }
-        catch (error) {
-        }
-    }
+    //         const newType = await bd.query(
+    //             'SELECT * FROM product WHERE typeId = $1 AND view = true * RETURNING *',
+    //             [typeId]
+    //         );
+    //     }
+    //     catch (error) {
+    //     }
+    // }
 }
 
 class productController {
@@ -197,7 +197,16 @@ class productController {
             const allProducts = await bd.query(
                 'SELECT * FROM product WHERE view = true'
             );
-            return res.status(200).json({ products: allProducts.rows });
+                const { page = 1, limit = 9 } = req.query;
+                const startIndex = (page - 1) * limit;
+                const endIndex = page * limit;
+                
+                const paginatedItems = allProducts.rows.slice(startIndex, endIndex);
+                
+                res.status(200).json({
+                  items: paginatedItems,
+                  total: allProducts.rows.length
+                });
         } catch (error) {
             console.log(error);
             return res.status(500).json({
@@ -209,5 +218,5 @@ class productController {
 }
 
 module.exports = new productController();
-module.exports = new productTypeController();
-module.exports = new collorController();
+// module.exports = new productTypeController();
+// module.exports = new collorController();

@@ -9,8 +9,7 @@ const authMiddleware = require('../middlewares/auth.middelewares');
 
 router.post('/registration', urlencodedParser, jsonParser, authController.registration);
 router.post('/login', urlencodedParser ,jsonParser, authController.login)
-router.get('/users', userController.getUsers)
-router.get('/user/:id', userController.getOneUser)
+// router.get('/user/:id', userController.getOneUser)
 router.get('/refresh', authController.refresh)
 router.get('/logout', authController.logout)
 

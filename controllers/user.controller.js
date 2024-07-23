@@ -159,23 +159,23 @@ class AuthorisationController {
     }
 }
 class UserController {
-    async getUsers(req, res) {
-        try {
-            const allUsers = await bd.query('Select * From person');
-            res.json(allUsers.rows);
-        } catch (e) {
-            console.log(e);
-            return res.status(500).json({ message: 'Непредвиденная ошибка!' });
-        }
-    }
+    // async getUsers(req, res) {
+    //     try {
+    //         const allUsers = await bd.query('Select * From person');
+    //         res.json(allUsers.rows);
+    //     } catch (e) {
+    //         console.log(e);
+    //         return res.status(500).json({ message: 'Непредвиденная ошибка!' });
+    //     }
+    // }
 
-    async getOneUser(req, res) {
-        try {
-        } catch (e) {
-            console.log(e);
-            return res.status(500).json({ message: 'Непредвиденная ошибка!' });
-        }
-    }
+    // async getOneUser(req, res) {
+    //     try {
+    //     } catch (e) {
+    //         console.log(e);
+    //         return res.status(500).json({ message: 'Непредвиденная ошибка!' });
+    //     }
+    // }
 }
 
 module.exports = new UserController();
