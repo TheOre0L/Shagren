@@ -288,6 +288,7 @@ const Post = ({
         },
         {
             label: 'Выбор типа товара',
+            
             description: (
               <>
                   <Autocomplete
