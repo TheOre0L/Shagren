@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { AuthHeader } from "../../components/AuthHeader";
 import { Header } from "../../components/Header";
 import CustomizedSnackbars from "../../components/Message/notification_msg";
-import Post from "../../components/CartProduct/Add/index";
+import Post from "./index";
 import { $api, API_URL } from "../../http";
 import { Context } from "../../index";
 

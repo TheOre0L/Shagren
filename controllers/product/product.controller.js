@@ -28,49 +28,7 @@ class collorController {
     // }
 }
 
-class productTypeController {
-    //PRODUCT_TYPE
-    // async typeAdd(req, res) {
-    //     try {
-    //         let { name } =
-    //             req.body;
 
-    //         const newType = await bd.query(
-    //             'INSERT INTO product (name) ' +
-    //                 'VALUES ($1) RETURNING *',
-    //             [name]
-    //         );
-    //         LogsService.addLog(
-    //             userid,
-    //             'Создание категории',
-    //             `Создание категории ${JSON.stringify(newType.rows[0])}`
-    //         );
-    //         return res.status(200).json({
-    //             message: 'Категория успешно добавлена!',
-    //             type: newType.rows[0],
-    //         });
-    //     } catch (error) {
-    //         console.log(error);
-    //         return res.status(500).json({
-    //             message: 'Произошла непредвиденная ошибка!',
-    //             error: error,
-    //         });
-    //     }
-    // }
-
-    // async typeDelete(req, res) {
-    //     try {
-    //         const id = req.params.id;
-
-    //         const newType = await bd.query(
-    //             'SELECT * FROM product WHERE typeId = $1 AND view = true * RETURNING *',
-    //             [typeId]
-    //         );
-    //     }
-    //     catch (error) {
-    //     }
-    // }
-}
 
 class productController {
     //PRODUCT
@@ -218,5 +176,5 @@ class productController {
 }
 
 module.exports = new productController();
-// module.exports = new productTypeController();
+
 // module.exports = new collorController();
