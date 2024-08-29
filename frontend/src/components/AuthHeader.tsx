@@ -14,6 +14,8 @@ import { Context } from '../index';
 import { UserDTO } from '../models/response/UserDTO';
 import styles from './Header/Header.module.scss';
 import BurgerMenu from './Menu/Menu';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import ShoppingCart from './ShopingCard/ShopingCart';
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
 }
@@ -25,9 +27,8 @@ export const AuthHeader = () => {
     return (
         <header>
             <nav className=" text-dark border-gray-200 px-4 lg:px-6 py-2.5">
-            <BurgerMenu/>
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                    
+                <div style={{marginRight: "-15vw"}}><BurgerMenu/></div>
                     <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                         
                         <Link className={styles.logo} to="/">
@@ -132,7 +133,8 @@ export const AuthHeader = () => {
                                     </div>
                                 </Menu.Items>
                             </Transition>
-                        </Menu>                       
+                        </Menu>
+                        <ShoppingCart/>
                     </div>
                     <div
                         className="justify-between items-center w-full lg:flex lg:w-auto lg:order-1"

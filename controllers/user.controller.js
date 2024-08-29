@@ -72,7 +72,6 @@ class AuthorisationController {
                 case 'city':
                     return res.status(400).json({ message: 'Укажите город!' });
                 default:
-                    console.log(e);
                     return res
                         .status(500)
                         .json({ message: 'Непредвиденная ошибка!' });
@@ -109,7 +108,6 @@ class AuthorisationController {
                 .status(200)
                 .json({ message: 'Успешный вход в аккаунт!', tokens, user });
         } catch (e) {
-            console.log(e);
             return res.status(500).json({ message: 'Непредвиденная ошибка!' });
         }
     }
@@ -129,7 +127,6 @@ class AuthorisationController {
             res.clearCookie('refreshToken');
             return res.json(token);
         } catch (e) {
-            console.log(e);
             return res.status(500).json({ message: 'Непредвиденная ошибка!' });
         }
     }
@@ -153,22 +150,11 @@ class AuthorisationController {
             await tokenService.saveToken(resultUser.id, tokens.refreshToken);
             return res.json({ ...tokens, user: resultUser });
         } catch (e) {
-            console.log(e);
             return res.status(500).json({ message: 'Непредвиденная ошибка!' });
         }
     }
 }
 class UserController {
-    // async getUsers(req, res) {
-    //     try {
-    //         const allUsers = await bd.query('Select * From person');
-    //         res.json(allUsers.rows);
-    //     } catch (e) {
-    //         console.log(e);
-    //         return res.status(500).json({ message: 'Непредвиденная ошибка!' });
-    //     }
-    // }
-
     // async getOneUser(req, res) {
     //     try {
     //     } catch (e) {

@@ -32,6 +32,7 @@ import TypographyMU from '@mui/joy/Typography';
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ActionProduct from '../Modal/ActionProduct/ActionProduct';
+import { API_URL } from '../../http';
 
 const Post = ({
   id,
@@ -68,7 +69,7 @@ const Post = ({
         {isFullPost ? (
           <>
             <Breadcrumb className="m-4" aria-label="Default breadcrumb example">
-              <Breadcrumb.Item href="/product">Каталог</Breadcrumb.Item>
+              <Breadcrumb.Item href="/catalog">Каталог</Breadcrumb.Item>
               <Breadcrumb.Item href={`/product/categ=${categ}`}>{categ}</Breadcrumb.Item>
               <Breadcrumb.Item href={`/product/categ=${categ}/type=${type}`}>{type}</Breadcrumb.Item>
             </Breadcrumb>
@@ -79,7 +80,7 @@ const Post = ({
                     <div className={`h-96 sm:h-[38.2rem] xl:h-[38.2rem] 2xl:h-[38.2rem] `}>
                       <Carousel>
                         {images.map((image, index) => (
-                          <img key={index} src={image} alt={`Product image ${index + 1}`} />
+                          <img key={index} src={`${API_URL}${image.file}`} alt={`Product image ${index + 1}`} />
                         ))}
                       </Carousel>
                     </div>
@@ -201,7 +202,8 @@ const Post = ({
               <div className={`h-96 sm:h-[200px] xl:h-[200px] 2xl:h-[200px] `}>
                       <Carousel>
                         {images.map((image, index) => (
-                          <img key={index} src={image} alt={`Product image ${index + 1}`} />
+
+                          <img key={index} src={`${API_URL}${image.file}`} alt={`Product image ${index + 1}`} />
                         ))}
                       </Carousel>
                     </div>

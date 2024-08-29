@@ -33,6 +33,10 @@ const Catalog = observer(() => {
 
     // Загрузка данных при изменении текущей страницы
     useEffect(() => {
+        document.title = 'Каталог | Shagren Shop';
+        if (localStorage.getItem('token')) {
+            store.checkAuth();
+        }
         fetchData(currentPage);
     }, [currentPage]);
 
@@ -60,7 +64,7 @@ const Catalog = observer(() => {
 
     return (
         <>
-            {store.isAuth ? <AuthHeader /> : <Header />}
+            <AuthHeader isAuth = {store.isAuth}/>
             {store.is_message ? (
                 <CustomizedSnackbars
                     text={store.message}

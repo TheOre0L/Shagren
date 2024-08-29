@@ -1,9 +1,9 @@
 import React from 'react';
 import { Carousel, FileInput, Label } from 'flowbite-react';
-import { $api, API_URL } from '../../../http';
+import { $api, API_URL } from '../../../../http';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import clsx from 'clsx';
-import styles from '../Post.module.scss';
+import styles from '../../Post.module.scss';
 
 const ImagesUploading = ({ images, setImages, isFullPost }) => {
 
@@ -141,7 +141,9 @@ const ImagesUploading = ({ images, setImages, isFullPost }) => {
                         type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
                     />
                 </Label>
+
             </div>
+
         </div>
     );
 };

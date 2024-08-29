@@ -6,6 +6,9 @@ import { UserDTO } from '../models/response/UserDTO';
 import AuthService from '../services/AuthService';
 
 export default class Store {
+    static login(login: string, password: string): void {
+        throw new Error('Method not implemented.');
+    }
     static registration(
         login: string,
         email: string,
@@ -103,9 +106,10 @@ export default class Store {
         } catch (e: any) {
             console.error(e.response.data.message);
             this.setError(e.response.data.message, true);
-        } finally {
+        }finally {
             this.setLoading(false);
-            window.location.replace('/');
+            await new Promise(resolve => setTimeout(resolve, 100)); // Придаем системе время на "успокоение"
+            window.location.replace("/");
         }
     }
 
@@ -113,7 +117,7 @@ export default class Store {
         this.setLoading(true);
         try {
             const response = await axios.get<AuthResponse>(
-                `${API_URL}/auth/refresh`,
+                `${API_URL}/api/v1.0/auth/refresh`,
                 { withCredentials: true }
             );
             console.log(response);

@@ -139,11 +139,18 @@ $blue: #4361ee;
     }
   }
 }
+.simplemde-editor .CodeMirror {
+  word-wrap: break-word; /* Для старых браузеров */
+  overflow-wrap: break-word; /* Для современных браузеров */
+}
 .editor {
+  background: white;
+
   margin: 30px -30px;
 
   :global {
     .cm-s-easymde {
+      overflow-wrap: break-word; /* Для современных браузеров */
       border: 0;
       font-size: 22px;
     }

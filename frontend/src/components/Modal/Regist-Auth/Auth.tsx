@@ -6,9 +6,12 @@ import Input from '@mui/joy/Input';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import Stack from '@mui/joy/Stack';
-
+import { Context } from '../../..';
 export default function AuthModal() {
+    const { store } = React.useContext(Context);
     const [open, setOpen] = React.useState<boolean>(false);
+    const [login, setLogin] = React.useState<string>('');
+    const [password, setPassword] = React.useState<string>('');
     return (
         <React.Fragment>
             <Button className="bg-[#0abab5]" onClick={() => setOpen(true)}>
@@ -35,18 +38,28 @@ export default function AuthModal() {
                                 <FormLabel>Логин или эл.почта</FormLabel>
                                 <Input
                                     autoFocus
+                                    onChange={(e) => setLogin(e.target.value)}
+                                    value={login}
                                     required
                                     placeholder="Введите логин или эл.почту"
                                 />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Пароль</FormLabel>
-                                <Input required placeholder="Введите пароль" />
+                                <Input
+                                    required
+                                    type='password'
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    value={password}
+                                    placeholder="Введите пароль"
+                                />
                             </FormControl>
                             <FormLabel>
                                 <a href="/">Забыли пароль? Восстановите его!</a>
                             </FormLabel>
-                            <Button className="bg-[#0abab5]">Войти</Button>
+                            <Button className="bg-[#0abab5]" onClick={() => store.login(login, password)}>Войти</Button>
                         </Stack>
                     </form>
                 </ModalDialog>

@@ -11,7 +11,8 @@ import AuthModal from '../Modal/Regist-Auth/Auth';
 import RegistrationModal from '../Modal/Regist-Auth/Registration';
 import { API_URL } from '../../http';
 import BurgerMenu from '../Menu/Menu';
-export const Header = () => {
+
+export const Header = observer(() => {
     const { store } = useContext(Context);
     const [users, setUsers] = useState<UserDTO[]>([]);
     return (
@@ -62,5 +63,5 @@ export const Header = () => {
             </nav>
         </header>
     );
-};
-export default observer(Header);
+});
+export default Header;

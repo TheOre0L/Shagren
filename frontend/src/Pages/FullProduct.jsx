@@ -14,41 +14,62 @@ import { Context } from "../index";
 const FullPost = observer(() => {
     const {store} = useContext(Context);
     const {id} = useParams();
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [isLoadingComm, setIsLoadingComm] = useState(false)
     const [data, setData] = useState()
+    const [category, setCategory] = useState()
+    const [type, setType] = useState()
     const [comment, setComment] = useState()
 
+
+    useEffect(async () => {
+        document.title = 'Страница товара | Shagren Shop'
+        try {
+            await $api.post(`http://localhost:5000/api/v1.0/product/?action=get`, {id}).then(async (response) => {
+                const types = await $api.post(`http://localhost:5000/api/v1.0/product/type?action=get&subjet=type`, {id: response.data.product.typeid});
+                const category = await $api.post(`http://localhost:5000/api/v1.0/product/type?action=get&subjet=category`, {id: response.data.product.categoryid});
+                setData(response.data); // Предполагается, что API возвращает массив items
+                setCategory(category.data.categories)
+                setType(types.data.type)
+            })
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+
+            setIsLoading(false);
+        }
+        if (localStorage.getItem('token')) {
+            store.checkAuth();
+
+        }
+    }, []);
     if(isLoading || isLoadingComm){
         return <Post isLoading={isLoading}/>
     }
 
   return (
     <>
+        {console.log(category, type)}
         {store.isAuth ? <AuthHeader/> : <Header/>}
         {store.is_message ? <CustomizedSnackbars text={store.message} is_msg = {store.is_message} color={store.color_msg}/>: null}
         {(
             <Post
-            key={1}
-            id={12}
-            title={`Шоппер`}
-            images={["https://sun9-22.userapi.com/s/v1/ig2/zPZLrfmAJay4Co-Uo1or35bsnz9ups4Js8sHFL-WOcNnJIB7q3mAuybSEVN5wmTXjOHFvd5Lar19Khp4MF8IzIIi.jpg?quality=96&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1620x2160&from=bu&u=5O7siFJP7WhsNhuqB_Ie5yUzcqipVp86b1S-yNw7aDk&cs=510x680", "https://sun9-65.userapi.com/s/v1/ig2/-YagQcngvbouq5e0iZ1AUm4pY7mhrKaml2coQPEFFdbhsBm1MFSsNLQbLrsrqixF0cqBnZCN907NYN51tg_-9tsJ.jpg?quality=96&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1620x2160&from=bu&u=8OoL32yFmvgUnHCMygb8ApQkoVW7iWXZUezFtPvu6VY&cs=510x680"]}
-            categ={"Сумки"}
-            type={"Шоппер"}
-            accordions={[
-              {id: 1, title: "Описание", content: "Стильная и вместительная сумка-шоппер. На фото из кожи оливкового цвета, также в ассортименте присутствует большой выбор и других классных цветов.", position: 0},
-              {id: 2, title: "Размеры и другое", content: "Размер 32 на 40 см, плоское дно. Объемные ручки делают носку множества предметов, которые он может в себя вместить, очень комфортной, даже просто трогать их приятно. Кроме прочного шва, нагруженные элементы усилены латунными хольнитенами."},
-              {id: 3, title: "Особенности", content: "Отлично подходит для тех, кто хочет сделать свой личный кабинет, чтобы хранить все свои вещи в одном месте. Обладает надежностью и удобством использования."},
-              {id: 4, title: "Преимущества", content: "Сумка-шоппер обладает высокой степенью универсальности и долговечностью, что позволяет ее использовать в любых условиях."}
-            ]}
+            key={data.product.id}
+            id={data.product.id}
+            categ={category.title}
+            title={data.product.title}
+            images={data.product.images}
+            type={type.title}
+            accordions={data.product.accordions}
             commentsCount={4}
-            colors={[{color: "🟠", id: 1}, {color: "🟢", id: 2}, {color: "⚫", id: 3}]}
-            price={10000}
-            isLiked      
-            isFullPost   
-            isEditable   
+            colors={data.product.colors}
+            price={data.product.price}
+            isLiked
+            isFullPost
+            isEditable
           >
-            <Markdown children={"**FFF** самая главная"}/>
+            <Markdown children={data.product.description}/>
           </Post>
 
         )}
