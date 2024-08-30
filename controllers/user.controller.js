@@ -1,5 +1,5 @@
 const bd = require('../bd');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const ApiError = require('../exceptions/api-error');
 const tokenService = require('./tokens.controller');

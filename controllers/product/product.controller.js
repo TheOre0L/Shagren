@@ -1,5 +1,4 @@
 const bd = require('../../bd');
-const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const LogsService = require('../logs.controller');
 

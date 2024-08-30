@@ -22,28 +22,29 @@ const FullPost = observer(() => {
     const [comment, setComment] = useState()
 
 
-    useEffect(async () => {
+    useEffect( () => {
         document.title = 'Страница товара | Shagren Shop'
         try {
-            await $api.post(`http://localhost:5000/api/v1.0/product/?action=get`, {id}).then(async (response) => {
-                const types = await $api.post(`http://localhost:5000/api/v1.0/product/type?action=get&subjet=type`, {id: response.data.product.typeid});
-                const category = await $api.post(`http://localhost:5000/api/v1.0/product/type?action=get&subjet=category`, {id: response.data.product.categoryid});
-                setData(response.data); // Предполагается, что API возвращает массив items
-                setCategory(category.data.categories)
-                setType(types.data.type)
+            findProduct().then(() => {
+                setIsLoading(false)
             })
-
         } catch (error) {
             console.error(error);
-        } finally {
-
-            setIsLoading(false);
         }
         if (localStorage.getItem('token')) {
             store.checkAuth();
 
         }
     }, []);
+    const findProduct = async() => {
+        await $api.post(`http://localhost:5000/api/v1.0/product/?action=get`, {id}).then(async (response) => {
+            const types = await $api.post(`http://localhost:5000/api/v1.0/product/type?action=get&subjet=type`, {id: response.data.product.typeid});
+            const category = await $api.post(`http://localhost:5000/api/v1.0/product/type?action=get&subjet=category`, {id: response.data.product.categoryid});
+            setData(response.data); // Предполагается, что API возвращает массив items
+            setCategory(category.data.categories)
+            setType(types.data.type)
+        })
+    }
     if(isLoading || isLoadingComm){
         return <Post isLoading={isLoading}/>
     }
